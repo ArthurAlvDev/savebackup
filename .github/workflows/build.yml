@@ -1,0 +1,51 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Testes
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rodar testes
+        run: python -m unittest discover -s tests -v
+
+  build:
+    name: Executável
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar PyInstaller
+        run: python -m pip install --upgrade pyinstaller
+      - name: Restaurar ícone
+        run: python tools/restore_icon.py
+      - name: Compilar
+        run: python -m PyInstaller --noconfirm --clean SaveBackup.spec
+      - name: Publicar artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: SaveBackup-windows
+          path: dist/SaveBackup.exe
+      - name: Anexar ao release (tags v*)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/SaveBackup.exe
+          generate_release_notes: true

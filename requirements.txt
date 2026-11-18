@@ -1,0 +1,9 @@
+# ==============================================================================
+# SaveBackup - Dependências do Projeto
+# ==============================================================================
+# A aplicação em tempo de execução utiliza EXCLUSIVAMENTE a biblioteca padrão
+# do Python (incluindo tkinter). Nenhuma biblioteca de terceiros é necessária
+# para executar o software.
+#
+# Para compilar o executável Windows (.exe):
+pyinstaller>=6.0.0

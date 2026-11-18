@@ -1,0 +1,11 @@
+{
+  "languages": {
+    "pt": "Português (BR)",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "de": "Deutsch",
+    "it": "Italiano"
+  },
+  "default": "pt"
+}
