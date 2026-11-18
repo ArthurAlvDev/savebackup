@@ -5,7 +5,6 @@
 **Backup automático, local e redundante dos saves dos seus jogos no Windows.**
 Um executável único, sem instalador, sem telemetria e sem dependências externas para o backup local.
 
-[![Build](https://github.com/ArthurAlvDev/savebackup/actions/workflows/build.yml/badge.svg)](https://github.com/ArthurAlvDev/savebackup/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D4.svg)](#requisitos)
