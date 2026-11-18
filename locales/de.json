@@ -67,6 +67,7 @@
   "log_choose_remote": "Bitte zuerst ein Cloud-Konto wählen.",
   "log_dl_rclone": "Lade rclone herunter (~20 MB)...",
   "log_rclone_installed": "rclone installiert! Klicke auf '2) Cloud-Konto verbinden'.",
+  "log_rclone_checksum_fail": "Integritätsprüfung von rclone fehlgeschlagen (SHA-256). Nichts wurde installiert.",
   "log_remotes_found": "Gefundene Konten: {0}",
   "log_none": "keine",
   "log_autostart_on": "Autostart mit Windows AKTIVIERT.",

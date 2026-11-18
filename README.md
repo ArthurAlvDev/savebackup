@@ -23,6 +23,7 @@ O SaveBackup observa as pastas escolhidas, compacta tudo em `.zip` com data e ho
 - **Compactação atômica**: grava em `.part` e renomeia ao final; se o processo cair, nenhum `.zip` fica corrompido.
 - **Limpeza de restos**: arquivos `.part` de execuções interrompidas são removidos automaticamente.
 - **Nuvem opcional**: Rclone (+70 provedores), pasta local de nuvem (OneDrive, Google Drive, Dropbox, Mega), FTP/FTPS, WebDAV (Nextcloud, ownCloud, Box) e caminho de rede SMB.
+- **Conexões verificadas**: FTPS com validação de certificado, WebDAV só em HTTPS fora da rede local e download do rclone conferido por SHA-256.
 - **Rotação de backups**: mantém os últimos *N* arquivos em cada destino.
 - **Bandeja do sistema**: backup manual pelo menu do ícone, sem abrir a janela.
 - **Início com o Windows** (opção única, sem tarefas agendadas escondidas).
@@ -89,7 +90,7 @@ O mesmo build roda no GitHub Actions em `.github/workflows/build.yml`; tags `v*`
 python -m unittest discover -s tests -v
 ```
 
-Cobrem compactação atômica, exclusão de destinos dentro da origem, rotação, limpeza de arquivos parciais, migração de configuração e integridade das traduções.
+Cobrem compactação atômica, exclusão de destinos dentro da origem, rotação, limpeza de arquivos parciais, migração de configuração, integridade das traduções e validação de URL WebDAV e argumentos do rclone.
 
 ## Estrutura
 

@@ -6,6 +6,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta
 import ftplib
 from pathlib import Path
+import ssl
 from typing import Any
 
 from src.config.constants import toint
@@ -22,7 +23,13 @@ def connect_ftp(cfg: dict[str, Any]) -> ftplib.FTP:
     if not host:
         raise ValueError("Host FTP vazio.")
 
-    ftp = ftplib.FTP_TLS(timeout=30) if use_tls else ftplib.FTP(timeout=30)
+    if use_tls:
+        # Contexto padrão: valida certificado e hostname do servidor FTPS.
+        context = ssl.create_default_context()
+        ftp: ftplib.FTP = ftplib.FTP_TLS(context=context, timeout=30)
+    else:
+        ftp = ftplib.FTP(timeout=30)
+
     ftp.connect(host, port)
     ftp.login(user, passwd)
     if use_tls and isinstance(ftp, ftplib.FTP_TLS):

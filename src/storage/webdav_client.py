@@ -6,6 +6,7 @@ from __future__ import annotations
 import base64
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
+import ipaddress
 from pathlib import Path
 import ssl
 from typing import Any
@@ -17,11 +18,35 @@ import xml.etree.ElementTree as ET
 from src.config.constants import APP_NAME, APP_VERSION, toint
 
 
+def _is_local_host(hostname: str) -> bool:
+    """Servidores locais podem usar http:// sem risco de tráfego na internet."""
+    host = (hostname or "").lower()
+    if not host:
+        return False
+    if host == "localhost" or host.endswith(".local"):
+        return True
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    return ip.is_private or ip.is_loopback
+
+
 def get_webdav_base_url(cfg: dict[str, Any]) -> str:
-    """Monta a URL completa do endpoint WebDAV."""
+    """Monta a URL completa do endpoint WebDAV, exigindo HTTPS fora da rede local."""
     base = str(cfg.get("webdav_url", "")).strip().rstrip("/")
     if not base:
         raise ValueError("URL WebDAV vazia.")
+
+    parsed = urllib.parse.urlparse(base)
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError("A URL WebDAV deve começar com https:// (ou http:// em rede local).")
+    if parsed.scheme == "http" and not _is_local_host(parsed.hostname or ""):
+        raise ValueError(
+            "Use https:// para servidores fora da rede local: credenciais e backups "
+            "passariam sem criptografia."
+        )
+
     sub = str(cfg.get("webdav_path", "")).strip().strip("/")
     return f"{base}/{urllib.parse.quote(sub)}" if sub else base
 

@@ -13,7 +13,7 @@ if not exist "logo.ico" (
 
 echo [1/3] Restaurando icone e instalando dependencias de build...
 python tools\restore_icon.py
-python -m pip install --quiet --upgrade pyinstaller
+python -m pip install --quiet -r requirements.txt
 if errorlevel 1 goto :erro
 
 echo [2/3] Executando testes...

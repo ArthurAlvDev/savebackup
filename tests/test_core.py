@@ -22,6 +22,8 @@ from src.config.settings import ConfigManager
 from src.core.archiver import cleanup_stale_parts, make_zip
 from src.core.retention import rotate_local_backups
 from src.i18n.manager import I18nManager
+from src.storage.rclone_client import build_remote_target
+from src.storage.webdav_client import get_webdav_base_url
 
 
 def _t(key: str, *args) -> str:
@@ -155,6 +157,36 @@ class I18nTests(unittest.TestCase):
             self.assertEqual(
                 reference - keys, set(), f"faltam chaves em {lang}.json"
             )
+
+
+class SecurityValidationTests(unittest.TestCase):
+    def test_webdav_rejects_plain_http_for_public_host(self) -> None:
+        with self.assertRaises(ValueError):
+            get_webdav_base_url({"webdav_url": "http://cloud.example.com/dav"})
+
+    def test_webdav_accepts_https(self) -> None:
+        url = get_webdav_base_url(
+            {"webdav_url": "https://cloud.example.com/dav/", "webdav_path": "SaveBackups"}
+        )
+        self.assertEqual(url, "https://cloud.example.com/dav/SaveBackups")
+
+    def test_webdav_allows_http_on_private_network(self) -> None:
+        self.assertTrue(
+            get_webdav_base_url({"webdav_url": "http://192.168.0.10/dav"}).startswith(
+                "http://192.168.0.10"
+            )
+        )
+
+    def test_rclone_rejects_option_like_remote(self) -> None:
+        with self.assertRaises(ValueError):
+            build_remote_target("--config=/tmp/x", "SaveBackups")
+
+    def test_rclone_rejects_control_characters(self) -> None:
+        with self.assertRaises(ValueError):
+            build_remote_target("gdrive", "Save\nBackups")
+
+    def test_rclone_builds_target_from_valid_parts(self) -> None:
+        self.assertEqual(build_remote_target("gdrive", "SaveBackups"), "gdrive:SaveBackups")
 
 
 class ConfigTests(unittest.TestCase):

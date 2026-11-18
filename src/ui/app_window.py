@@ -34,7 +34,7 @@ from src.platform.autostart import is_autostart_enabled, set_autostart
 from src.platform.win_tray import WinTrayIcon
 from src.storage.ftp_client import ftp_test, ftp_upload_backups
 from src.storage.local_sync import sync_to_directory
-from src.storage.rclone_client import find_rclone, rclone_run
+from src.storage.rclone_client import build_remote_target, find_rclone, rclone_run
 from src.storage.webdav_client import get_webdav_base_url, webdav_test, webdav_upload_backups
 from src.ui.components.actions_view import ActionsComponent
 from src.ui.components.cloud_view import CloudBackupComponent
@@ -420,7 +420,7 @@ class MainWindow:
                 if not find_rclone():
                     self.log(self.i18n.t("log_rclone_missing"))
                     return
-                target = f"{c['cloud_remote']}:{c['cloud_path']}"
+                target = build_remote_target(c["cloud_remote"], c["cloud_path"])
                 self.log(self.i18n.t("log_uploading_to", target))
                 r = rclone_run(
                     [
@@ -507,12 +507,13 @@ class MainWindow:
                     if not c.get("cloud_remote"):
                         self.log(self.i18n.t("log_choose_remote"))
                         return
+                    target = build_remote_target(
+                        c["cloud_remote"], c.get("cloud_path", "")
+                    )
                     if not find_rclone():
                         self.log(self.i18n.t("log_rclone_missing"))
                         return
-                    r = rclone_run(
-                        ["mkdir", f"{c['cloud_remote']}:{c['cloud_path']}"]
-                    )
+                    r = rclone_run(["mkdir", target])
                     if r.returncode == 0:
                         self.log(self.i18n.t("log_test_ok"))
                     else:

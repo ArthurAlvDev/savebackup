@@ -67,6 +67,7 @@
   "log_choose_remote": "Select a cloud remote/account first.",
   "log_dl_rclone": "Downloading rclone (~20 MB)...",
   "log_rclone_installed": "rclone installed! Now click '2) Connect cloud account'.",
+  "log_rclone_checksum_fail": "rclone integrity check failed (SHA-256). Nothing was installed.",
   "log_remotes_found": "Cloud remotes found: {0}",
   "log_none": "none",
   "log_autostart_on": "Start with Windows ENABLED.",

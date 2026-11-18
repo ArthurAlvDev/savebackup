@@ -67,6 +67,7 @@
   "log_choose_remote": "Scegli prima un account remoto.",
   "log_dl_rclone": "Scaricamento rclone (~20 MB)...",
   "log_rclone_installed": "rclone installato! Ora clicca su '2) Connetti account cloud'.",
+  "log_rclone_checksum_fail": "Verifica di integrità di rclone non riuscita (SHA-256). Nulla è stato installato.",
   "log_remotes_found": "Account trovati: {0}",
   "log_none": "nessuno",
   "log_autostart_on": "Avvio con Windows ATTIVATO.",

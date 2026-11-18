@@ -1,4 +1,4 @@
-from src.config.constants import (
+﻿from src.config.constants import (
     APP_ID,
     APP_NAME,
     APP_TITLE,
@@ -14,7 +14,7 @@ from src.config.constants import (
     NEW_CONSOLE,
     NO_WINDOW,
     RCLONE_LOCAL,
-    RCLONE_URL,
+    RCLONE_RELEASE_API,
     get_icon_path,
     toint,
 )
@@ -36,7 +36,7 @@ __all__ = [
     "NEW_CONSOLE",
     "NO_WINDOW",
     "RCLONE_LOCAL",
-    "RCLONE_URL",
+    "RCLONE_RELEASE_API",
     "get_icon_path",
     "toint",
     "ConfigManager",

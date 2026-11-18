@@ -6,6 +6,19 @@ e o projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
 ## [Não publicado]
 
+## [2.2.1] - 2026-11-18
+
+### Segurança
+- FTPS passa a usar contexto TLS padrão, com validação de certificado e hostname.
+- WebDAV exige `https://` para hosts fora da rede local; `http://` continua aceito em `localhost` e faixas privadas.
+- Download do rclone confere o SHA-256 do arquivo contra a lista oficial publicada em `downloads.rclone.org` e não instala nada se a verificação falhar.
+- Nomes de remoto e pasta do rclone são validados e não podem ser interpretados como opções de linha de comando.
+- Workflow do GitHub Actions com permissão de escrita apenas no job de build e actions fixadas por commit SHA.
+- `requirements.txt` fixa a versão do PyInstaller usada no build.
+
+### Adicionado
+- Seis testes de validação de segurança (URL WebDAV e argumentos do rclone).
+
 ## [2.2.0] - 2026-11-18
 
 ### Adicionado

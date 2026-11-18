@@ -1,7 +1,7 @@
-VSVersionInfo(
+﻿VSVersionInfo(
   ffi=FixedFileInfo(
-    filevers=(2, 2, 0, 0),
-    prodvers=(2, 2, 0, 0),
+    filevers=(2, 2, 1, 0),
+    prodvers=(2, 2, 1, 0),
     mask=0x3f,
     flags=0x0,
     OS=0x40004,
@@ -17,12 +17,12 @@ VSVersionInfo(
           [
             StringStruct(u'CompanyName', u'OlacDev'),
             StringStruct(u'FileDescription', u'SaveBackup - gerenciador de backup de saves de jogos'),
-            StringStruct(u'FileVersion', u'2.2.0'),
+            StringStruct(u'FileVersion', u'2.2.1'),
             StringStruct(u'InternalName', u'SaveBackup'),
             StringStruct(u'LegalCopyright', u'Copyright (c) 2026 OlacDev'),
             StringStruct(u'OriginalFilename', u'SaveBackup.exe'),
             StringStruct(u'ProductName', u'SaveBackup'),
-            StringStruct(u'ProductVersion', u'2.2.0'),
+            StringStruct(u'ProductVersion', u'2.2.1'),
             StringStruct(u'Comments', u'Made by OlacDev - https://olacdev.com/')
           ]
         )
